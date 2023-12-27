@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Catch N+1 Query
+        Model::preventLazyLoading(! app()->isProduction());
+
+        // Throw exception on missing attr instead of null
+        Model::preventsAccessingMissingAttributes();
     }
 }
