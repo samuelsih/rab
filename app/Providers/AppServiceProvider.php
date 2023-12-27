@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Catch N+1 Query
-        Model::preventLazyLoading(! app()->isProduction());
+        Model::preventLazyLoading(! $this->app->isProduction());
 
         // Throw exception on missing attr instead of null
         Model::preventsAccessingMissingAttributes();
